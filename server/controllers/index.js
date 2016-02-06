@@ -9,49 +9,33 @@ module.exports = {
 
   messages: {
     get: function (req, res) {
-      // console.log('CONTROLLER from messages.get', req.url, req.method);
-      // res.send('hello world');
-      var data = '';
-      
-      con.query('select * from messages', function(err, rows){
-        // if(err) throw err;
-        data += rows;
-        console.log('DATA RECEIVED FROM Db', data);
+      models.messages.get(function(err, rows) {
+        console.log('ROWS: ', rows);
       });
-      
-      // // req.on('data', function(chunk) {
-      //   data += chunk;
-      // });
-      // req.on('end', function(data) { console.log(data); });
-      // con.end(function(rows) {console.log('DATA RECEIVED FROM DB?????', data);});
-      res.end('data', data);
     }, // a function which handles a get request for all messages
     
-
     post: function (req, res) {
-
-      // var data = "";
-
-      // req.on('data', function(chunk) {
-      //   data += chunk;
+     console.log('REQ query', req.data);
+      // models.messages.post(function(err, success) {
+      //   console.log('success??', success);
+      //   res.send('err, success', err, success);
       // });
-      // req.on('end', function(data){
-      //   console.log("data", data);
-      // });
-      // console.log('CONTROLLER from messages.post', req.url, req.method);
-
-
-      // res.end('CONTROLLER file get method!');
     } // a function which handles posting a message to the database
   },
 
   users: {
     // Ditto as above
     get: function (req, res) {
+      models.messages.get(function(err, rows) {
+        console.log('ROWS: ', rows);
+      });
       // console.log('CONTROLLER file get req');
     },
     post: function (req, res) {
-      // console.log('CONTROLLER file get req');
+      models.users.post(function(err, data){
+        console.log('success with our data?', data);
+        res.send('success with our data?', data);
+      });
     }
   }
 };

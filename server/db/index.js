@@ -9,20 +9,12 @@ var mysql = require('mysql');
 var con = mysql.createConnection( {
   host: 'localhost',
   user: 'root',
-  password: 'hitesh',
+  password: 'peter',
   database: 'chat'
 });
 
-con.connect(function(err) {
-  if( err ) {
-    console.log('Error connecting to db, friend', err);
-    return;
-  }
-  console.log('Connection is like so established');
-});
+con.connect()
 
-// con.end(function ( err ) {
-//   console.log(err);
-// });
+
 
 module.exports = con;
