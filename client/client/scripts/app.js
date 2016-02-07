@@ -59,10 +59,12 @@ var app = {
       url: app.server,
       type: 'GET',
       contentType: 'application/json',
-      data: { order: '-createdAt'},
       success: function(data) {
         // Don't bother if we have nothing to work with
-        // if (!data.results || !data.results.length) { return; }
+         if (!data.results || !data.results.length) {
+          app.stopSpinner();
+          return;
+        }
 
         // Get the last message
         var mostRecentMessage = data.results[data.results.length-1];
@@ -74,7 +76,7 @@ var app = {
           app.populateRooms(data.results);
 
           // Update the UI with the fetched messages
-          app.populateMessages(data.results, animate);
+          app.populateMessages(data.results);
 
           // Store the ID of the most recent message
           app.lastMessageId = mostRecentMessage.objectId;
@@ -202,7 +204,7 @@ var app = {
       }
     }
     else {
-      app.startSpinner();
+      //app.startSpinner();
       // Store as undefined for empty names
       app.roomname = app.$roomSelect.val();
 

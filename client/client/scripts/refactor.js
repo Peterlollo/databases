@@ -22,7 +22,7 @@
 
 app = {
 
-    server: 'https://api.parse.com/1/classes/chatterbox/',
+    server: 'https://localhost:3000/classes/chatterbox/',
 
     init: function() {
       // Get username
