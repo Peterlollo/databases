@@ -3,7 +3,7 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (callback) {
-     var queryStr = 'select text from messages;';
+     var queryStr = 'select m.text, u.name from messages m inner join users u on (m.user_id = u.id);';
      db.query(queryStr, function(err, result) {
       callback( result );
      });
