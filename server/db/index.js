@@ -4,17 +4,15 @@ var mysql = require('mysql');
 // You will need to connect with the user "root", no password,
 // and to the database "chat".
 
-
-//http://www.sitepoint.com/using-node-mysql-javascript-client/
-var con = mysql.createConnection( {
+var connection = mysql.createConnection( {
   host: 'localhost',
   user: 'root',
   password: 'peter',
   database: 'chat'
 });
 
-con.connect()
+connection.connect();
 
 
 
-module.exports = con;
+module.exports = connection;

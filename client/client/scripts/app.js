@@ -49,6 +49,7 @@ var app = {
         app.fetch();
       },
       error: function (data) {
+        console.log( data );
         console.error('chatterbox: Failed to send message');
       }
     });
@@ -61,28 +62,30 @@ var app = {
       contentType: 'application/json',
       success: function(data) {
         // Don't bother if we have nothing to work with
-         if (!data.results || !data.results.length) {
+         if (!data || !data.length) {
           app.stopSpinner();
           return;
         }
 
         // Get the last message
-        var mostRecentMessage = data.results[data.results.length-1];
+        var mostRecentMessage = data[data.length-1];
+        console.dir(mostRecentMessage);
         var displayedRoom = $('.chat span').first().data('roomname');
         app.stopSpinner();
         // Only bother updating the DOM if we have a new message
         // if (mostRecentMessage.objectId !== app.lastMessageId || app.roomname !== displayedRoom) {
           // Update the UI with the fetched rooms
-          app.populateRooms(data.results);
+          app.populateRooms(data);
 
           // Update the UI with the fetched messages
-          app.populateMessages(data.results);
+          app.populateMessages(data);
 
           // Store the ID of the most recent message
           app.lastMessageId = mostRecentMessage.objectId;
         // }
       },
       error: function(data) {
+        console.log('DATA from failed fetch,', data);
         console.error('chatterbox: Failed to fetch messages');
       }
     });
@@ -103,15 +106,15 @@ var app = {
     }
 
     // Make it scroll to the bottom
-    var scrollTop = app.$chats.prop('scrollHeight');
-    if (animate) {
-      app.$chats.animate({
-        scrollTop: scrollTop
-      });
-    }
-    else {
-      app.$chats.scrollTop(scrollTop);
-    }
+    // var scrollTop = app.$chats.prop('scrollHeight');
+    // if (animate) {
+    //   app.$chats.animate({
+    //     scrollTop: scrollTop
+    //   });
+    // }
+    // else {
+    //   app.$chats.scrollTop(scrollTop);
+    // }
   },
 
   populateRooms: function(results) {
@@ -215,7 +218,7 @@ var app = {
 
   handleSubmit: function(evt) {
     var message = {
-      username: app.username,
+      name: app.username,
       text: app.$message.val(),
       roomname: app.roomname || 'lobby'
     };
